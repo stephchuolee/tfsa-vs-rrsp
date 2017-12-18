@@ -77,7 +77,10 @@ let values = {
 }
 
 function writeToElement(element, innerHTML) {
-	document.querySelectorAll(element)[0].innerHTML = innerHTML;
+	const nodeList = document.querySelectorAll(element);
+	for (let element of nodeList) {
+		element.innerHTML = innerHTML;
+	}
 }
 
 function writeResults() {
