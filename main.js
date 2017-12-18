@@ -40,43 +40,81 @@ function getInputValue(data_type) {
 }
 
 let values = {
+	// values from input
 	taxRate: Number(getInputValue('taxRate')),
 	retirementTaxRate: Number(getInputValue('retirementTaxRate')),
 	depositAmount: Number(getInputValue('depositAmount')),
 	yearsInvested: Number(getInputValue('yearsInvested')),
 	roi: Number(getInputValue('roi')),
-	inflationRate: Number(getInputValue('inflationRate'))
+	inflationRate: Number(getInputValue('inflationRate')),
+	// calculated values
+	get rrspDeposit() {
+		return calculateRRSPBeforeTaxDeposit(this.depositAmount, this.taxRate);
+	},
+	get rateOfReturn() {
+		return calculateRateOfReturn(this.roi, this.inflationRate);
+	},
+	get tfsaFutureValue() {
+		return calculateFutureValue(this.depositAmount, this.rateOfReturn, this.yearsInvested);
+	},
+	get rrspFutureValue() {
+		return calculateFutureValue(this.rrspDeposit, this.rateOfReturn, values.yearsInvested);
+	},
+	tfsaTaxPaid: 0,
+	get rrspTaxPaid() {
+		return calculateRRSPFutureTaxPaid(this.retirementTaxRate, this.rrspFutureValue);
+	},
+	get tfsaAfterTaxFV() {
+		return calculateAfterTaxFutureValue(this.tfsaFutureValue, this.tfsaTaxPaid);
+	},
+	get rrspAfterTaxFV() {
+		return calculateAfterTaxFutureValue(this.rrspFutureValue, this.rrspTaxPaid);
+	}
 }
 
 function calculateAll(investmentType) {
 	let deposit;
+	const rateOfReturn = values.rateOfReturn;
+	let futureValue;
+	let afterTaxFutureValue;
+
 	if (investmentType == 'rrsp') {
-		deposit = calculateRRSPBeforeTaxDeposit(values.depositAmount, values.taxRate);
+		deposit = values.rrspDeposit;
+		futureValue = values.tfsaFutureValue;
+		taxPaid = values.tfsaTaxPaid;
+		afterTaxFutureValue = values.tfsaAfterTaxFV;
 	} else {
 		deposit = values.depositAmount;
-
+		futureValue = values.rrspFutureValue;
+		taxPaid = values.rrspTaxPaid;
+		afterTaxFutureValue = values.rrspAfterTaxFV;
 	}
-
-	const rateOfReturn = calculateRateOfReturn(values.roi, values.inflationRate);
-	const futureValue = calculateFutureValue(deposit, rateOfReturn, values.yearsInvested);
-
-	let taxPaid = 0;
-	if (investmentType == 'rrsp') {
-		taxPaid = calculateRRSPFutureTaxPaid(values.retirementTaxRate, futureValue);
-	}
-
-	const afterTaxFutureValue = calculateAfterTaxFutureValue(futureValue, taxPaid);
 
 	return afterTaxFutureValue;
 }
 
+function writeToElement(element, innerHTML) {
+	document.querySelectorAll(element)[0].innerHTML = innerHTML;
+}
 function writeResults() {
 	const tfsaResults = calculateAll('tfsa');
 	const rrspResults = calculateAll('rrsp');
 
-	document.querySelectorAll('.js-tfsa-result')[0].innerHTML = tfsaResults;
-	document.querySelectorAll('.js-rrsp-result')[0].innerHTML = rrspResults;
+	writeToElement('.js-tfsa-deposit', '$' + values.depositAmount);
+	writeToElement('.js-rrsp-deposit', '$' + values.rrspDeposit.toFixed(2));
+	writeToElement('.js-tfsa-fv', '$' + values.tfsaFutureValue.toFixed(2));
+	writeToElement('.js-rrsp-fv', '$' + values.rrspFutureValue.toFixed(2));
+	writeToElement('.js-rrsp-tax-paid', '- $' + values.rrspTaxPaid.toFixed(2));
+
+	writeToElement('.js-tfsa-after-tax-fv', '$' + values.tfsaAfterTaxFV.toFixed(2));
+	writeToElement('.js-rrsp-after-tax-fv', '$' + values.rrspAfterTaxFV.toFixed(2));
+
+	writeToElement('.js-tfsa-result', '$' + values.tfsaAfterTaxFV.toFixed(2));
+	writeToElement('.js-rrsp-result', '$' + values.rrspAfterTaxFV.toFixed(2));
+	writeToElement('.js-investment-period', values.yearsInvested);
+
 }
+
 $('.js-input').keyup(function(){
 	// Only change the input that has been modified
 	const modifiedDataType = this.getAttribute('data-type');
