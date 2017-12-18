@@ -31,7 +31,7 @@ function calculateAfterTaxFutureValue(futureValue, taxPaid) {
 }
 
 function getInputValue(data_type) {
-	const value = document.querySelectorAll("input[data-type=" + data_type + "]")[0].value
+	const value = document.querySelectorAll('input[data-type=' + data_type + ']')[0].value;
 	if (value) {
 		return value;
 	} else {
@@ -40,7 +40,7 @@ function getInputValue(data_type) {
 }
 
 function formatNumberWithCommas(x) {
-	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 let values = {
@@ -74,7 +74,7 @@ let values = {
 	get rrspAfterTaxFV() {
 		return calculateAfterTaxFutureValue(this.rrspFutureValue, this.rrspTaxPaid);
 	}
-}
+};
 
 function writeToElement(element, innerHTML) {
 	const nodeList = document.querySelectorAll(element);
