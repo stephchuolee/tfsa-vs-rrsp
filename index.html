@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type='text/css' href="css/main.css">
+		<script
+			src="https://code.jquery.com/jquery-3.2.1.min.js"
+			integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+			crossorigin="anonymous"></script>
+		<script defer src="main.js"></script>
+	</head>
+	<body class="text-black-1">
+		<div class="container xs-px3 xs-py5 clearfix">
+			<div class="col xs-col-12 md-col-4">
+				<h1 class="xs-text-3 xs-mb3">TFSA vs RRSP Calculator</h1>
+				<form>
+					<div class="xs-flex xs-flex-align-center xs-mb2">
+						<div class="xs-flex-shrink-0" style="width: 120px;">Current Tax Rate</div>
+						<input class="text-input xs-text-5 xs-col-12 xs-border-bottom xs-border-top-none xs-border-left-none xs-border-right-none xs-text-center xs-ml3 js-input" data-type="taxRate" value="0.3829"/>
+					</div>
+					<div class="xs-flex xs-flex-align-center xs-mb2">
+						<div class="xs-flex-shrink-0" style="width: 120px;">Tax Rate in Retirement</div>
+						<input class="text-input xs-text-5 xs-col-12 xs-border-bottom xs-border-top-none xs-border-left-none xs-border-right-none xs-text-center xs-ml3 js-input" data-type="retirementTaxRate" value="0.2117"/>
+					</div>
+					<div class="xs-flex xs-flex-align-center xs-mb2">
+						<div class="xs-flex-shrink-0" style="width: 120px;">Deposit</div>
+						<input class="text-input xs-text-5 xs-col-12 xs-border-bottom xs-border-top-none xs-border-left-none xs-border-right-none xs-text-center xs-ml3 js-input" data-type="depositAmount" value="1000"/>
+					</div>
+					<div class="xs-flex xs-flex-align-center xs-mb2">
+						<div class="xs-flex-shrink-0" style="width: 120px;">Years Invested</div>
+						<input class="text-input xs-text-5 xs-col-12 xs-border-bottom xs-border-top-none xs-border-left-none xs-border-right-none xs-text-center xs-ml3 js-input" data-type="yearsInvested" value="30"/>
+					</div>
+					<div class="xs-flex xs-flex-align-center xs-mb2">
+						<div class="xs-flex-shrink-0" style="width: 120px;">Return on Investment</div>
+						<input class="text-input xs-text-5 xs-col-12 xs-border-bottom xs-border-top-none xs-border-left-none xs-border-right-none xs-text-center xs-ml3 js-input" data-type="roi" value="0.065"/>
+					</div>
+					<div class="xs-flex xs-flex-align-center xs-mb2">
+						<div class="xs-flex-shrink-0" style="width: 120px;">Inflation Rate</div>
+						<input class="text-input xs-text-5 xs-col-12 xs-border-bottom xs-border-top-none xs-border-left-none xs-border-right-none xs-text-center xs-ml3 js-input" data-type="inflationRate" value="0.025"/>
+					</div>
+				</form>
+
+				<section>
+					<h5>TFSA</h5>
+					<div class="js-tfsa-result"></div>
+					<table>
+						<tr>
+							<th>
+							</th>
+						</tr>
+					</table>
+					<h5>RRSP</h5>
+					<div class="js-rrsp-result"></div>
+					<table>
+						
+					</table>
+				</section>
+			</div>
+			<div class="col xs-col-12 md-col-8">
+			</div>
+		</div>
+	</body>
+</html>
