@@ -76,30 +76,33 @@ let values = {
 	}
 };
 
-function writeToElement(element, prefix = '', value) {
+function writeToElement(element, prefix = '', value, formatNumberAsDollars = false) {
 	const nodeList = document.querySelectorAll(element);
 	for (let element of nodeList) {
-		element.innerHTML = prefix + value.toLocaleString('en', {
-			minimumFractionDigits: 2,
-			maximumFractionDigits: 2
-		});
+		if (formatNumberAsDollars) {
+			element.innerHTML = prefix + '$' + value.toLocaleString('en', {
+				minimumFractionDigits: 2,
+				maximumFractionDigits: 2
+			});
+		} else {
+			element.innerHTML = prefix + value;
+		}
 	}
 }
 
 function writeToResultsTable() {
-	writeToElement('.js-tfsa-deposit', '$', values.depositAmount);
-	writeToElement('.js-rrsp-deposit', '$', values.rrspDeposit);
-	writeToElement('.js-tfsa-fv', '$', values.tfsaFutureValue);
-	writeToElement('.js-rrsp-fv', '$', values.rrspFutureValue);
-	writeToElement('.js-rrsp-tax-paid', '- $', values.rrspTaxPaid);
+	writeToElement('.js-tfsa-deposit', '', values.depositAmount, true);
+	writeToElement('.js-rrsp-deposit', '', values.rrspDeposit, true);
+	writeToElement('.js-tfsa-fv', '', values.tfsaFutureValue, true);
+	writeToElement('.js-rrsp-fv', '', values.rrspFutureValue, true);
+	writeToElement('.js-rrsp-tax-paid', '- ', values.rrspTaxPaid, true);
 
-	writeToElement('.js-tfsa-after-tax-fv', '$', values.tfsaAfterTaxFV);
-	writeToElement('.js-rrsp-after-tax-fv', '$', values.rrspAfterTaxFV);
+	writeToElement('.js-tfsa-after-tax-fv', '', values.tfsaAfterTaxFV, true);
+	writeToElement('.js-rrsp-after-tax-fv', '', values.rrspAfterTaxFV, true);
 
-	writeToElement('.js-tfsa-result', '$', values.tfsaAfterTaxFV);
-	writeToElement('.js-rrsp-result', '$', values.rrspAfterTaxFV);
-	writeToElement('.js-investment-period', '$', values.yearsInvested);
-
+	writeToElement('.js-tfsa-result', '', values.tfsaAfterTaxFV, true);
+	writeToElement('.js-rrsp-result', '', values.rrspAfterTaxFV, true);
+	writeToElement('.js-investment-period', values.yearsInvested, false);
 }
 
 $('.js-input').keyup(function(){
