@@ -1,3 +1,5 @@
+// Calculation Functions
+
 function calculateRRSPBeforeTaxDeposit(deposit, marginalTaxRate) {
 	const afterTaxRate = 1 - marginalTaxRate;
 	const beforeTaxDeposit = deposit / afterTaxRate;
@@ -30,6 +32,7 @@ function calculateAfterTaxFutureValue(futureValue, taxPaid) {
 	return afterTaxFutureValue;
 }
 
+// UI Functions
 function getInputValue(data_type) {
 	const value = document.querySelectorAll('input[data-type=' + data_type + ']')[0].value;
 	if (value) {
@@ -40,14 +43,15 @@ function getInputValue(data_type) {
 }
 
 let values = {
-	// values from input
+	// Values from input
 	taxRate: Number(getInputValue('taxRate')),
 	retirementTaxRate: Number(getInputValue('retirementTaxRate')),
 	depositAmount: Number(getInputValue('depositAmount')),
 	yearsInvested: Number(getInputValue('yearsInvested')),
 	roi: Number(getInputValue('roi')),
 	inflationRate: Number(getInputValue('inflationRate')),
-	// calculated values
+	
+	// Calculated values
 	get rrspDeposit() {
 		return calculateRRSPBeforeTaxDeposit(this.depositAmount, this.taxRate);
 	},
@@ -82,7 +86,7 @@ function writeToElement(element, prefix = '', value) {
 	}
 }
 
-function writeResults() {
+function writeToResultsTable() {
 	writeToElement('.js-tfsa-deposit', '$', values.depositAmount);
 	writeToElement('.js-rrsp-deposit', '$', values.rrspDeposit);
 	writeToElement('.js-tfsa-fv', '$', values.tfsaFutureValue);
@@ -103,7 +107,7 @@ $('.js-input').keyup(function(){
 	const modifiedDataType = this.getAttribute('data-type');
 	values[modifiedDataType] = Number(this.value);
 
-	writeResults();
+	writeToResultsTable();
 });
 
-writeResults();
+writeToResultsTable();
