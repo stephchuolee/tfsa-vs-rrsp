@@ -39,10 +39,6 @@ function getInputValue(data_type) {
 	}
 }
 
-function formatNumberWithCommas(x) {
-	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
-
 let values = {
 	// values from input
 	taxRate: Number(getInputValue('taxRate')),
@@ -76,26 +72,29 @@ let values = {
 	}
 };
 
-function writeToElement(element, innerHTML) {
+function writeToElement(element, prefix = '', value) {
 	const nodeList = document.querySelectorAll(element);
 	for (let element of nodeList) {
-		element.innerHTML = innerHTML;
+		element.innerHTML = prefix + value.toLocaleString('en', {
+			minimumFractionDigits: 2,
+			maximumFractionDigits: 2
+		});
 	}
 }
 
 function writeResults() {
-	writeToElement('.js-tfsa-deposit', '$' + formatNumberWithCommas(values.depositAmount));
-	writeToElement('.js-rrsp-deposit', '$' + formatNumberWithCommas(values.rrspDeposit.toFixed(2)));
-	writeToElement('.js-tfsa-fv', '$' + formatNumberWithCommas(values.tfsaFutureValue.toFixed(2)));
-	writeToElement('.js-rrsp-fv', '$' + formatNumberWithCommas(values.rrspFutureValue.toFixed(2)));
-	writeToElement('.js-rrsp-tax-paid', '- $' + formatNumberWithCommas(values.rrspTaxPaid.toFixed(2)));
+	writeToElement('.js-tfsa-deposit', '$', values.depositAmount);
+	writeToElement('.js-rrsp-deposit', '$', values.rrspDeposit);
+	writeToElement('.js-tfsa-fv', '$', values.tfsaFutureValue);
+	writeToElement('.js-rrsp-fv', '$', values.rrspFutureValue);
+	writeToElement('.js-rrsp-tax-paid', '- $', values.rrspTaxPaid);
 
-	writeToElement('.js-tfsa-after-tax-fv', '$' + formatNumberWithCommas(values.tfsaAfterTaxFV.toFixed(2)));
-	writeToElement('.js-rrsp-after-tax-fv', '$' + formatNumberWithCommas(values.rrspAfterTaxFV.toFixed(2)));
+	writeToElement('.js-tfsa-after-tax-fv', '$', values.tfsaAfterTaxFV);
+	writeToElement('.js-rrsp-after-tax-fv', '$', values.rrspAfterTaxFV);
 
-	writeToElement('.js-tfsa-result', '$' + formatNumberWithCommas(values.tfsaAfterTaxFV.toFixed(2)));
-	writeToElement('.js-rrsp-result', '$' + formatNumberWithCommas(values.rrspAfterTaxFV.toFixed(2)));
-	writeToElement('.js-investment-period', formatNumberWithCommas(values.yearsInvested));
+	writeToElement('.js-tfsa-result', '$', values.tfsaAfterTaxFV);
+	writeToElement('.js-rrsp-result', '$', values.rrspAfterTaxFV);
+	writeToElement('.js-investment-period', '$', values.yearsInvested);
 
 }
 
