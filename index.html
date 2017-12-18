@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 		<link rel="stylesheet" type='text/css' href="css/main.css">
 		<script
 			src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -11,41 +12,38 @@
 		<script defer src="main.js"></script>
 	</head>
 	<body class="text-black-1">
-		<div class="container xs-px3 xs-py5 clearfix gutters">
-			<h1 class="col xs-col-12 xs-mb3 xs-text-2 md-text-1">TFSA vs RRSP Calculator</h1>
-			<div class="col xs-col-12 md-col-6">
+		<div class="container xs-px3 xs-py5 clearfix">
+			<h1 class="header-font text-brand col xs-col-12 xs-mb3 xs-text-2 md-text-1">TFSA vs RRSP Calculator</h1>
+			<div class="col xs-col-12 md-col-5">
 				<form class="xs-mb5">
 					<div class="xs-flex xs-flex-align-center xs-mb2">
 						<div class="xs-flex-shrink-0" style="width: 120px;">Current Tax Rate</div>
-						<input class="text-input xs-text-5 xs-col-12 xs-border-bottom xs-border-top-none xs-border-left-none xs-border-right-none xs-text-center xs-ml3 js-input" data-type="taxRate" value="0.3829"/>
+						<input class="text-input xs-text-5 xs-col-12 xs-border-bottom xs-border-top-none xs-border-left-none xs-border-right-none xs-text-center rounded xs-ml3 js-input" data-type="taxRate" value="0.3829"/>
 					</div>
 					<div class="xs-flex xs-flex-align-center xs-mb2">
 						<div class="xs-flex-shrink-0" style="width: 120px;">Tax Rate in Retirement</div>
-						<input class="text-input xs-text-5 xs-col-12 xs-border-bottom xs-border-top-none xs-border-left-none xs-border-right-none xs-text-center xs-ml3 js-input" data-type="retirementTaxRate" value="0.2117"/>
+						<input class="text-input xs-text-5 xs-col-12 xs-border-bottom xs-border-top-none xs-border-left-none xs-border-right-none xs-text-center rounded xs-ml3 js-input" data-type="retirementTaxRate" value="0.2117"/>
 					</div>
 					<div class="xs-flex xs-flex-align-center xs-mb2">
 						<div class="xs-flex-shrink-0" style="width: 120px;">Deposit</div>
-						<input class="text-input xs-text-5 xs-col-12 xs-border-bottom xs-border-top-none xs-border-left-none xs-border-right-none xs-text-center xs-ml3 js-input" data-type="depositAmount" value="1000"/>
+						<input class="text-input xs-text-5 xs-col-12 xs-border-bottom xs-border-top-none xs-border-left-none xs-border-right-none xs-text-center rounded xs-ml3 js-input" data-type="depositAmount" value="1000"/>
 					</div>
 					<div class="xs-flex xs-flex-align-center xs-mb2">
 						<div class="xs-flex-shrink-0" style="width: 120px;">Years Invested</div>
-						<input class="text-input xs-text-5 xs-col-12 xs-border-bottom xs-border-top-none xs-border-left-none xs-border-right-none xs-text-center xs-ml3 js-input" data-type="yearsInvested" value="30"/>
+						<input class="text-input xs-text-5 xs-col-12 xs-border-bottom xs-border-top-none xs-border-left-none xs-border-right-none xs-text-center rounded xs-ml3 js-input" data-type="yearsInvested" value="30"/>
 					</div>
 					<div class="xs-flex xs-flex-align-center xs-mb2">
 						<div class="xs-flex-shrink-0" style="width: 120px;">Return on Investment</div>
-						<input class="text-input xs-text-5 xs-col-12 xs-border-bottom xs-border-top-none xs-border-left-none xs-border-right-none xs-text-center xs-ml3 js-input" data-type="roi" value="0.065"/>
+						<input class="text-input xs-text-5 xs-col-12 xs-border-bottom xs-border-top-none xs-border-left-none xs-border-right-none xs-text-center rounded xs-ml3 js-input" data-type="roi" value="0.065"/>
 					</div>
 					<div class="xs-flex xs-flex-align-center xs-mb2">
 						<div class="xs-flex-shrink-0" style="width: 120px;">Inflation Rate</div>
-						<input class="text-input xs-text-5 xs-col-12 xs-border-bottom xs-border-top-none xs-border-left-none xs-border-right-none xs-text-center xs-ml3 js-input" data-type="inflationRate" value="0.025"/>
+						<input class="text-input xs-text-5 xs-col-12 xs-border-bottom xs-border-top-none xs-border-left-none xs-border-right-none xs-text-center rounded xs-ml3 js-input" data-type="inflationRate" value="0.025"/>
 					</div>
 				</form>
 			</div>
-			<div class="col xs-col-12 md-col-6">
+			<div class="col xs-col-12 md-offset-2 md-col-5">
 				<section>
-					<div class="xs-mb3">
-						With a TFSA, your investment will grow to <span class="js-tfsa-result"></span> in <span class="js-investment-period"></span> years, while an RRSP invement will grow to <span class="js-rrsp-result"></span> in that same period.
-					</div>
 					<table class="xs-text-right">
 						<tr class="xs-col-2">
 							<th>
@@ -58,7 +56,7 @@
 							</th>
 						</tr>
 						<tr>
-							<th class="xs-text-6">
+							<th class="xs-text-6 md-text-5">
 								Deposit
 							</th>
 							<td class="js-tfsa-deposit">
@@ -67,7 +65,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th class="xs-text-6">
+							<th class="xs-text-6 md-text-5">
 								Future Value
 							</th>
 							<td class="js-tfsa-fv">
@@ -76,7 +74,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th class="xs-text-6 xs-border-bottom">
+							<th class="xs-text-6 md-text-5 xs-border-bottom">
 								Tax Paid
 							</th>
 							<td class="xs-border-bottom js-tfsa-tax-paid">
@@ -86,17 +84,22 @@
 							</td>
 						</tr>
 						<tr>
-							<th class="xs-text-6">
+							<th class="xs-text-6 md-text-5">
 								After Tax Future Value
 							</th>
-							<td class="js-tfsa-after-tax-fv">
+							<td class="xs-text-4 bold js-tfsa-after-tax-fv">
 							</td>
-							<td class="js-rrsp-after-tax-fv">
+							<td class="xs-text-4 bold js-rrsp-after-tax-fv">
 							</td>
 						</tr>
 					</table>
 				</section>
 			</div>
 		</div>
+		<section class="summary xs-px3 xs-py6 text-white fill-brand">
+			<div class="container header-font xs-text-2 xs-px3">
+				With a TFSA, your investment will grow to <span class="spaced-underline js-tfsa-result"></span> in <span class=" js-investment-period"></span> years, while an RRSP invement will grow to <span class="spaced-underline js-rrsp-result"></span> in that same period.
+			</div>
+		</section>
 	</body>
 </html>

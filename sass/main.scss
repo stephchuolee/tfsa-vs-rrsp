@@ -1,16 +1,37 @@
 .container {
-    max-width: $sm !important;
-    margin-left: auto!important;
-    margin-right: auto!important;
-}
-
-// Overriding Solid gutters
-.gutters > .col {
-    padding: 0 1rem !important;
+	max-width: $sm !important;
+	margin-left: auto!important;
+	margin-right: auto!important;
 }
 
 body {
-    font-family: Open Sans;
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.87) !important;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
+	color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.header-font {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 800;
+}
+
+.fill-brand {
+	background: #00b298;
+}
+
+section.summary {
+	letter-spacing: 1px;
+
+	.header-font {
+		line-height: 34px !important;
+	}
+}
+
+.spaced-underline {
+	border-bottom: 3px solid white;
+	padding-bottom: 2px;
+}
+
+.text-brand {
+	color: #00b298;
 }
