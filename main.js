@@ -39,6 +39,10 @@ function getInputValue(data_type) {
 	}
 }
 
+function formatNumberWithCommas(x) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 let values = {
 	// values from input
 	taxRate: Number(getInputValue('taxRate')),
@@ -77,18 +81,18 @@ function writeToElement(element, innerHTML) {
 }
 
 function writeResults() {
-	writeToElement('.js-tfsa-deposit', '$' + values.depositAmount);
-	writeToElement('.js-rrsp-deposit', '$' + values.rrspDeposit.toFixed(2));
-	writeToElement('.js-tfsa-fv', '$' + values.tfsaFutureValue.toFixed(2));
-	writeToElement('.js-rrsp-fv', '$' + values.rrspFutureValue.toFixed(2));
-	writeToElement('.js-rrsp-tax-paid', '- $' + values.rrspTaxPaid.toFixed(2));
+	writeToElement('.js-tfsa-deposit', '$' + formatNumberWithCommas(values.depositAmount));
+	writeToElement('.js-rrsp-deposit', '$' + formatNumberWithCommas(values.rrspDeposit.toFixed(2)));
+	writeToElement('.js-tfsa-fv', '$' + formatNumberWithCommas(values.tfsaFutureValue.toFixed(2)));
+	writeToElement('.js-rrsp-fv', '$' + formatNumberWithCommas(values.rrspFutureValue.toFixed(2)));
+	writeToElement('.js-rrsp-tax-paid', '- $' + formatNumberWithCommas(values.rrspTaxPaid.toFixed(2)));
 
-	writeToElement('.js-tfsa-after-tax-fv', '$' + values.tfsaAfterTaxFV.toFixed(2));
-	writeToElement('.js-rrsp-after-tax-fv', '$' + values.rrspAfterTaxFV.toFixed(2));
+	writeToElement('.js-tfsa-after-tax-fv', '$' + formatNumberWithCommas(values.tfsaAfterTaxFV.toFixed(2)));
+	writeToElement('.js-rrsp-after-tax-fv', '$' + formatNumberWithCommas(values.rrspAfterTaxFV.toFixed(2)));
 
-	writeToElement('.js-tfsa-result', '$' + values.tfsaAfterTaxFV.toFixed(2));
-	writeToElement('.js-rrsp-result', '$' + values.rrspAfterTaxFV.toFixed(2));
-	writeToElement('.js-investment-period', values.yearsInvested);
+	writeToElement('.js-tfsa-result', '$' + formatNumberWithCommas(values.tfsaAfterTaxFV.toFixed(2)));
+	writeToElement('.js-rrsp-result', '$' + formatNumberWithCommas(values.rrspAfterTaxFV.toFixed(2)));
+	writeToElement('.js-investment-period', formatNumberWithCommas(values.yearsInvested));
 
 }
 
