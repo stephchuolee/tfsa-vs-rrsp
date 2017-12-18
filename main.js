@@ -72,34 +72,11 @@ let values = {
 	}
 }
 
-function calculateAll(investmentType) {
-	let deposit;
-	const rateOfReturn = values.rateOfReturn;
-	let futureValue;
-	let afterTaxFutureValue;
-
-	if (investmentType == 'rrsp') {
-		deposit = values.rrspDeposit;
-		futureValue = values.tfsaFutureValue;
-		taxPaid = values.tfsaTaxPaid;
-		afterTaxFutureValue = values.tfsaAfterTaxFV;
-	} else {
-		deposit = values.depositAmount;
-		futureValue = values.rrspFutureValue;
-		taxPaid = values.rrspTaxPaid;
-		afterTaxFutureValue = values.rrspAfterTaxFV;
-	}
-
-	return afterTaxFutureValue;
-}
-
 function writeToElement(element, innerHTML) {
 	document.querySelectorAll(element)[0].innerHTML = innerHTML;
 }
-function writeResults() {
-	const tfsaResults = calculateAll('tfsa');
-	const rrspResults = calculateAll('rrsp');
 
+function writeResults() {
 	writeToElement('.js-tfsa-deposit', '$' + values.depositAmount);
 	writeToElement('.js-rrsp-deposit', '$' + values.rrspDeposit.toFixed(2));
 	writeToElement('.js-tfsa-fv', '$' + values.tfsaFutureValue.toFixed(2));
@@ -118,7 +95,7 @@ function writeResults() {
 $('.js-input').keyup(function(){
 	// Only change the input that has been modified
 	const modifiedDataType = this.getAttribute('data-type');
-	values[modifiedDataType] = this.value;
+	values[modifiedDataType] = Number(this.value);
 
 	writeResults();
 });
