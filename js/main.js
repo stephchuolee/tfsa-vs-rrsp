@@ -1,3 +1,37 @@
+let values = {
+	// Values from input
+	taxRate: Number(getInputValue('taxRate')),
+	retirementTaxRate: Number(getInputValue('retirementTaxRate')),
+	depositAmount: Number(getInputValue('depositAmount')),
+	yearsInvested: Number(getInputValue('yearsInvested')),
+	roi: Number(getInputValue('roi')),
+	inflationRate: Number(getInputValue('inflationRate')),
+	
+	// Calculated values
+	get rrspDeposit() {
+		return calculateRRSPBeforeTaxDeposit(this.depositAmount, this.taxRate);
+	},
+	get rateOfReturn() {
+		return calculateRateOfReturn(this.roi, this.inflationRate);
+	},
+	get tfsaFutureValue() {
+		return calculateFutureValue(this.depositAmount, this.rateOfReturn, this.yearsInvested);
+	},
+	get rrspFutureValue() {
+		return calculateFutureValue(this.rrspDeposit, this.rateOfReturn, values.yearsInvested);
+	},
+	tfsaTaxPaid: 0,
+	get rrspTaxPaid() {
+		return calculateRRSPFutureTaxPaid(this.retirementTaxRate, this.rrspFutureValue);
+	},
+	get tfsaAfterTaxFV() {
+		return calculateAfterTaxFutureValue(this.tfsaFutureValue, this.tfsaTaxPaid);
+	},
+	get rrspAfterTaxFV() {
+		return calculateAfterTaxFutureValue(this.rrspFutureValue, this.rrspTaxPaid);
+	}
+};
+
 // Calculation Functions
 
 function calculateRRSPBeforeTaxDeposit(deposit, marginalTaxRate) {
@@ -41,40 +75,6 @@ function getInputValue(data_type) {
 		return false;
 	}
 }
-
-let values = {
-	// Values from input
-	taxRate: Number(getInputValue('taxRate')),
-	retirementTaxRate: Number(getInputValue('retirementTaxRate')),
-	depositAmount: Number(getInputValue('depositAmount')),
-	yearsInvested: Number(getInputValue('yearsInvested')),
-	roi: Number(getInputValue('roi')),
-	inflationRate: Number(getInputValue('inflationRate')),
-	
-	// Calculated values
-	get rrspDeposit() {
-		return calculateRRSPBeforeTaxDeposit(this.depositAmount, this.taxRate);
-	},
-	get rateOfReturn() {
-		return calculateRateOfReturn(this.roi, this.inflationRate);
-	},
-	get tfsaFutureValue() {
-		return calculateFutureValue(this.depositAmount, this.rateOfReturn, this.yearsInvested);
-	},
-	get rrspFutureValue() {
-		return calculateFutureValue(this.rrspDeposit, this.rateOfReturn, values.yearsInvested);
-	},
-	tfsaTaxPaid: 0,
-	get rrspTaxPaid() {
-		return calculateRRSPFutureTaxPaid(this.retirementTaxRate, this.rrspFutureValue);
-	},
-	get tfsaAfterTaxFV() {
-		return calculateAfterTaxFutureValue(this.tfsaFutureValue, this.tfsaTaxPaid);
-	},
-	get rrspAfterTaxFV() {
-		return calculateAfterTaxFutureValue(this.rrspFutureValue, this.rrspTaxPaid);
-	}
-};
 
 function writeToElement(element, prefix = '', value, formatNumberAsDollars = false) {
 	const nodeList = document.querySelectorAll(element);
