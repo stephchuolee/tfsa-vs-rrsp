@@ -39,7 +39,7 @@ function getInputValue(data_type) {
 	}
 }
 
-let inputValues = {
+let values = {
 	taxRate: Number(getInputValue('taxRate')),
 	retirementTaxRate: Number(getInputValue('retirementTaxRate')),
 	depositAmount: Number(getInputValue('depositAmount')),
@@ -48,27 +48,41 @@ let inputValues = {
 	inflationRate: Number(getInputValue('inflationRate'))
 }
 
-function calculateAll() {
-	const rrspDeposit = calculateRRSPBeforeTaxDeposit(inputValues.depositAmount, inputValues.taxRate);
-	const rateOfReturn = calculateRateOfReturn(inputValues.roi, inputValues.inflationRate);
-	const rrspFutureValue = calculateFutureValue(rrspDeposit, rateOfReturn, inputValues.yearsInvested);
-	const taxPaid = calculateRRSPFutureTaxPaid(inputValues.retirementTaxRate, rrspFutureValue);
-	const afterTaxFutureValue = calculateAfterTaxFutureValue(rrspFutureValue, taxPaid);
+function calculateAll(investmentType) {
+	let deposit;
+	if (investmentType == 'rrsp') {
+		deposit = calculateRRSPBeforeTaxDeposit(values.depositAmount, values.taxRate);
+	} else {
+		deposit = values.depositAmount;
+
+	}
+
+	const rateOfReturn = calculateRateOfReturn(values.roi, values.inflationRate);
+	const futureValue = calculateFutureValue(deposit, rateOfReturn, values.yearsInvested);
+
+	let taxPaid = 0;
+	if (investmentType == 'rrsp') {
+		taxPaid = calculateRRSPFutureTaxPaid(values.retirementTaxRate, futureValue);
+	}
+
+	const afterTaxFutureValue = calculateAfterTaxFutureValue(futureValue, taxPaid);
 
 	return afterTaxFutureValue;
 }
 
-function writeResults(tfsaResults, rrspResults) {
+function writeResults() {
+	const tfsaResults = calculateAll('tfsa');
+	const rrspResults = calculateAll('rrsp');
+
 	document.querySelectorAll('.js-tfsa-result')[0].innerHTML = tfsaResults;
 	document.querySelectorAll('.js-rrsp-result')[0].innerHTML = rrspResults;
 }
 $('.js-input').keyup(function(){
 	// Only change the input that has been modified
 	const modifiedDataType = this.getAttribute('data-type');
-	inputValues[modifiedDataType] = this.value;
-	rrspResults = calculateAll();
-	writeResults(0, rrspResults)
+	values[modifiedDataType] = this.value;
+
+	writeResults();
 });
 
-rrspResults = calculateAll();
-writeResults(0, rrspResults)
+writeResults();
