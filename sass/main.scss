@@ -1,0 +1,19 @@
+.container {
+    max-width: $sm !important;
+    margin-left: auto!important;
+    margin-right: auto!important;
+}
+
+// Overriding Solid gutters
+.gutters {
+    margin: 0 -1rem !important;
+}
+.gutters > .col {
+    padding: 0 1rem !important;
+}
+
+body {
+    font-family: Open Sans;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.87) !important;
+}
